@@ -1,7 +1,7 @@
 
 # DoorstepAI Dropoff SDK for React Native
 
-The `@doorstepai/dropoff-sdk` provides a set of tools to integrate delivery tracking and Proof of Delivery (POD) events into your React Native application. This SDK enables seamless coordination between your delivery interface and DoorstepAI's backend systems.
+The `@doorstepai/dropoff-sdk` provides a set of tools to integrate delivery tracking into your React Native application. This SDK enables seamless coordination between your delivery interface and DoorstepAI's backend systems.
 
 ## 📦 Installation
 
@@ -26,7 +26,7 @@ import {
 
 Place the following component in the root of your `App.tsx` or main entry file:
 
-```tsx
+```jsx
 import { RootDoorstepAI } from "@doorstepai/dropoff-sdk"
 
 const App = () => {
@@ -78,6 +78,8 @@ import { DoorstepAI } from "@doorstepai/dropoff-sdk"
 ### `DoorstepAI.init(): Promise<void>`
 
 Initializes the DoorstepAI module on Android. Automatically handled by `RootDoorstepAI` if used properly.
+
+NOTE: You should never need to call this method directly. 
 
 ---
 
