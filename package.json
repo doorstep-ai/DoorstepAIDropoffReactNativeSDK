@@ -1,6 +1,6 @@
 {
   "name": "@doorstepai/dropoff-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "doorstep.ai dropoff sdk for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
