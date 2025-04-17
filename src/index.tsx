@@ -1,22 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { RootDoorstepAI } from './RootDoorstepAI';
+import { DoorstepAI } from './DoorstepAI';
 
-const LINKING_ERROR =
-  `The package '@doorstepai/dropoff-sdk' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
-
-const DropoffSdk = NativeModules.DropoffSdk
-  ? NativeModules.DropoffSdk
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
-
-export function multiply(a: number, b: number): Promise<number> {
-  return DropoffSdk.multiply(a, b);
-}
+export { DoorstepAI, RootDoorstepAI };

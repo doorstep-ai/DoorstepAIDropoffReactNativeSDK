@@ -8,10 +8,13 @@ import com.facebook.react.uimanager.ViewManager
 
 class DropoffSdkPackage : ReactPackage {
   override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-    return listOf(DropoffSdkModule(reactContext))
+    return listOf(
+      DoorstepAIModule(reactContext)
+    )
   }
 
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
     return emptyList()
   }
 }
+

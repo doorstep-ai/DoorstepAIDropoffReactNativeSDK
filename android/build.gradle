@@ -6,18 +6,24 @@ buildscript {
   repositories {
     google()
     mavenCentral()
+    flatDir {
+    dirs 'libs'
+  }
   }
 
   dependencies {
     classpath "com.android.tools.build:gradle:8.7.2"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+    classpath "org.jetbrains.kotlin:kotlin-serialization:${getExtOrDefault('kotlinVersion')}"
+    
   }
 }
 
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
+apply plugin: 'kotlinx-serialization'
 
 
 def getExtOrIntegerDefault(name) {
@@ -70,6 +76,9 @@ android {
 repositories {
   mavenCentral()
   google()
+  flatDir {
+    dirs 'libs'
+  }
 }
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
@@ -77,5 +86,8 @@ def kotlin_version = getExtOrDefault("kotlinVersion")
 dependencies {
   implementation "com.facebook.react:react-android"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  // implementation(name: "doorstepai-tracking-sdk-api-dev-debug", ext: "aar")
+  implementation fileTree(dir: 'libs', include: ['*.aar'])
+  api "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
 }
 

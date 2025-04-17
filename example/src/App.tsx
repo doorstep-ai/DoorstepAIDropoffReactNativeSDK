@@ -1,17 +1,31 @@
-import { multiply } from '@doorstepai/dropoff-sdk';
-import { Text, View, StyleSheet } from 'react-native';
-import { useState, useEffect } from 'react';
+import { DoorstepAI, RootDoorstepAI } from '@doorstepai/dropoff-sdk';
+import { View, StyleSheet, Button } from 'react-native';
 
 export default function App() {
-  const [result, setResult] = useState<number | undefined>();
-
-  useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <RootDoorstepAI apiKey="some_api_key" />
+      <Button
+        title="Start Delivery"
+        onPress={() => {
+          DoorstepAI.startDeliveryByPlaceID('your_place_id');
+        }}
+      />
+
+      <View />
+      <Button
+        title="Stop Delivery"
+        onPress={() => {
+          DoorstepAI.stopDelivery();
+        }}
+      />
+      <View />
+      <Button
+        title="New Event"
+        onPress={() => {
+          DoorstepAI.newEvent('your_event_name');
+        }}
+      />
     </View>
   );
 }
