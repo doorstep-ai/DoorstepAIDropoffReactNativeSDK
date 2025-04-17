@@ -50,7 +50,7 @@
     "url": "git+https://github.com/doorstep-ai/DoorstepAIDropoffReactNativeSDK"
   },
   "author": "Doing Doorstep Better, Inc. (Sheel Patel)",
-  "license": "MIT",
+
   "homepage": "https://github.com/doorstep-ai/DoorstepAIDropoffReactNativeSDK#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
