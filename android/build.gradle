@@ -86,7 +86,7 @@ def kotlin_version = getExtOrDefault("kotlinVersion")
 dependencies {
   implementation "com.facebook.react:react-android"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation("ai.doorstep.com:doorstepai-dropoff-sdk:0.0.1")
+  implementation("ai.doorstep.com:doorstepai-dropoff-sdk:1.0.1")
   api "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
 }
 

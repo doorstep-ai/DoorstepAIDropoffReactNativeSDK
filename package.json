@@ -1,10 +1,9 @@
 {
   "name": "@doorstepai/dropoff-sdk",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "description": "doorstep.ai dropoff sdk for React Native",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
-  "private": false,
   "exports": {
     ".": {
       "types": "./lib/typescript/src/index.d.ts",
@@ -50,7 +49,6 @@
     "url": "git+https://github.com/doorstep-ai/DoorstepAIDropoffReactNativeSDK"
   },
   "author": "Doing Doorstep Better, Inc. (Sheel Patel)",
-
   "homepage": "https://github.com/doorstep-ai/DoorstepAIDropoffReactNativeSDK#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -150,5 +148,8 @@
     "type": "legacy-module",
     "languages": "kotlin-swift",
     "version": "0.49.2"
+  },
+  "dependencies": {
+    "react-native-dotenv": "^3.4.11"
   }
 }

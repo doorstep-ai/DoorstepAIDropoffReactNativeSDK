@@ -4,26 +4,26 @@ import { View, StyleSheet, Button } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <RootDoorstepAI apiKey="some_api_key" />
+      <RootDoorstepAI apiKey="your_api_key" />
       <Button
         title="Start Delivery"
         onPress={() => {
-          DoorstepAI.startDeliveryByPlaceID('your_place_id');
+          DoorstepAI.startDeliveryByPlaceID('destination_place_id', 'id_1');
         }}
       />
 
-      <View />
+      <View style={styles.spacer} />
       <Button
         title="Stop Delivery"
         onPress={() => {
-          DoorstepAI.stopDelivery();
+          DoorstepAI.stopDelivery('id_1');
         }}
       />
-      <View />
+      <View style={styles.spacer} />
       <Button
         title="New Event"
         onPress={() => {
-          DoorstepAI.newEvent('your_event_name');
+          DoorstepAI.newEvent('event_name', 'id_1');
         }}
       />
     </View>
@@ -35,5 +35,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  spacer: {
+    height: 20,
   },
 });

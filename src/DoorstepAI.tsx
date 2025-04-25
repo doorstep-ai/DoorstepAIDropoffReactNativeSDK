@@ -4,6 +4,7 @@ const { DoorstepAI } = NativeModules;
 type AddressType = {
   streetNumber: string;
   route: string;
+  subPremise: string;
   locality: string;
   administrativeAreaLevel1: string;
   postalCode: string;
@@ -11,6 +12,10 @@ type AddressType = {
 
 class DoorstepAIModule {
   static isInitialized = false;
+
+  static enableDevMode() {
+    DoorstepAI.setDevMode(true);
+  }
 
   static async init(): Promise<void> {
     if (Platform.OS === 'android') {
@@ -20,66 +25,84 @@ class DoorstepAIModule {
       try {
         await DoorstepAI.init();
         console.log('DoorstepAI initialized');
+        this.isInitialized = true; // Mark as initialized on success
       } catch (error) {
         console.error('Failed to initialize DoorstepAI:', error);
         throw error;
       }
-    }
+    } // iOS does not require explicit init in the bridge
   }
 
   static setApiKey(apiKey: string) {
-    console.log(DoorstepAI);
     DoorstepAI.setApiKey(apiKey);
   }
 
-  static async startDeliveryByPlaceID(placeID: string) {
-    DoorstepAI.startDeliveryByPlaceID(placeID)
-      .then(() => {
-        console.log('Delivery started successfully');
-      })
-      .catch((error: any) => {
-        console.error('Failed to start delivery:', error);
-      });
+  // Add deliveryId parameter
+  static async startDeliveryByPlaceID(placeID: string, deliveryId: string) {
+    try {
+      const result = await DoorstepAI.startDeliveryByPlaceID(
+        placeID,
+        deliveryId
+      );
+      console.log('Delivery started successfully by Place ID:', result);
+      return result; // Return result (e.g., session ID from Android)
+    } catch (error: any) {
+      console.error('Failed to start delivery by Place ID:', error);
+      throw error; // Re-throw error for caller handling
+    }
   }
 
-  static startDeliveryByPlusCode(plusCode: string) {
-    DoorstepAI.startDeliveryByPlusCode(plusCode)
-      .then(() => {
-        console.log('Delivery started successfully');
-      })
-      .catch((error: any) => {
-        console.error('Failed to start delivery:', error);
-      });
+  // Add deliveryId parameter
+  static async startDeliveryByPlusCode(plusCode: string, deliveryId: string) {
+    try {
+      const result = await DoorstepAI.startDeliveryByPlusCode(
+        plusCode,
+        deliveryId
+      );
+      console.log('Delivery started successfully by Plus Code:', result);
+      return result;
+    } catch (error: any) {
+      console.error('Failed to start delivery by Plus Code:', error);
+      throw error;
+    }
   }
 
-  static startDeliveryByAddress(address: AddressType) {
-    DoorstepAI.startDeliveryByAddress(address)
-      .then(() => {
-        console.log('Delivery started successfully');
-      })
-      .catch((error: any) => {
-        console.error('Failed to start delivery:', error);
-      });
+  // Add deliveryId parameter and handle platform difference
+  static async startDeliveryByAddress(
+    address: AddressType,
+    deliveryId: string
+  ) {
+    try {
+      let result = await DoorstepAI.startDeliveryByAddress(address, deliveryId);
+      console.log('Delivery started successfully by Address:', result);
+      return result;
+    } catch (error: any) {
+      console.error('Failed to start delivery by Address:', error);
+      throw error;
+    }
   }
 
-  static stopDelivery() {
-    DoorstepAI.stopDelivery()
-      .then(() => {
-        console.log('Delivery stopped successfully');
-      })
-      .catch((error: any) => {
-        console.error('Failed to stop delivery:', error);
-      });
+  // Add deliveryId parameter
+  static async stopDelivery(deliveryId: string) {
+    try {
+      await DoorstepAI.stopDelivery(deliveryId);
+      console.log('Delivery stopped successfully');
+    } catch (error: any) {
+      console.error('Failed to stop delivery:', error);
+      throw error;
+    }
   }
 
-  static newEvent(eventName: string) {
-    DoorstepAI.newEvent(eventName)
-      .then(() => {
-        console.log('Event sent successfully');
-      })
-      .catch((error: any) => {
-        console.error('Failed to send event:', error);
-      });
+  // Add deliveryId parameter
+  static async newEvent(eventName: string, deliveryId: string) {
+    try {
+      const result = await DoorstepAI.newEvent(eventName, deliveryId);
+      console.log('Event sent successfully:', result);
+      return result;
+    } catch (error: any) {
+      console.error('Failed to send event:', error);
+      throw error;
+    }
   }
 }
 

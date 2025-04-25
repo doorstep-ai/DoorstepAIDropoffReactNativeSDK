@@ -184,6 +184,8 @@ In your `AndroidManifest.xml`, include the following permissions:
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+<uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 <uses-feature android:name="android.hardware.sensor.accelerometer" />
 <uses-feature android:name="android.hardware.sensor.gyroscope" />
