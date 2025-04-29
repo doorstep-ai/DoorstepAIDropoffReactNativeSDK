@@ -17,13 +17,16 @@ class DoorstepAIModule {
     DoorstepAI.setDevMode(true);
   }
 
-  static async init(): Promise<void> {
+  static async init(
+    notificationTitle?: string,
+    notificationText?: string
+  ): Promise<void> {
     if (Platform.OS === 'android') {
       if (this.isInitialized) {
         return;
       }
       try {
-        await DoorstepAI.init();
+        await DoorstepAI.init(notificationTitle, notificationText);
         console.log('DoorstepAI initialized');
         this.isInitialized = true; // Mark as initialized on success
       } catch (error) {

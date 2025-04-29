@@ -11,11 +11,18 @@ import { useEffect } from 'react';
 import { DoorstepAI } from './DoorstepAI';
 
 const DoorstepAIView = requireNativeComponent('RootDoorstepAIView');
-export function RootDoorstepAI(props: { apiKey: string }) {
+export function RootDoorstepAI(props: {
+  apiKey: string;
+  notificationTitle?: string;
+  notificationText?: string;
+}) {
   useEffect(() => {
     const initializeAndRequestPermissions = async () => {
       if (Platform.OS === 'android') {
-        await DoorstepAI.init();
+        await DoorstepAI.init(
+          props.notificationTitle || '',
+          props.notificationText || ''
+        );
       }
 
       DoorstepAI.setApiKey(props.apiKey);
@@ -51,7 +58,7 @@ export function RootDoorstepAI(props: { apiKey: string }) {
     };
 
     initializeAndRequestPermissions();
-  }, [props.apiKey]);
+  }, [props.apiKey, props.notificationTitle, props.notificationText]);
 
   // On iOS, the native view might handle triggering permission prompts if needed.
   // The main setup involves Info.plist configuration.

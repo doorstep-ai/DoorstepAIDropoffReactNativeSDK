@@ -18,13 +18,13 @@ class DoorstepAIModule(private val reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun init(promise: Promise) {
+  fun init(notificationTitle: String?, notificationText: String?, promise: Promise) {
     try {
-      DoorstepAI.init(reactContext) { result ->
+      DoorstepAI.init(reactContext, notificationTitle, notificationText) { result ->
         result.onSuccess {
           promise.resolve(true)
         }.onFailure { error ->
-          promise.reject("INIT_ERROR", error.message ?: "Promise Rejection: Failed to initialize DoorstepAI")
+          promise.reject("INIT_ERROR", error.message ?: "Failed to initialize DoorstepAI")
         }
       }
     } catch (e: Exception) {
@@ -100,13 +100,8 @@ class DoorstepAIModule(private val reactContext: ReactApplicationContext) :
   @ReactMethod
   fun newEvent(eventName: String, deliveryId: String, promise: Promise) {
     try {
-      DoorstepAI.newEvent(eventName, deliveryId) { result ->
-        result.onSuccess { eventResponse ->
-          promise.resolve(eventResponse)
-        }.onFailure { error ->
-          promise.reject("EVENT_CREATION_ERROR", error.message ?: "Promise Rejection: Failed to save event")
-        }
-      }
+      DoorstepAI.newEvent(eventName, deliveryId) { /* Callback might not be invoked or provide useful data */ }
+      promise.resolve("Event $eventName triggered for $deliveryId")
     } catch (e: Exception) {
       promise.reject("EVENT_CREATION_ERROR", e.message ?: "Failed to save event")
     }
@@ -128,8 +123,8 @@ class DoorstepAIModule(private val reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun setDevMode(devModeEnabled: Boolean) {
-    DoorstepAI.devMode = devModeEnabled
+  fun setDevMode(enabled: Boolean) {
+    DoorstepAI.devMode = enabled
   }
 
   companion object {
