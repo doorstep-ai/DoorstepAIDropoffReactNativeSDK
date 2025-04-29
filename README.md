@@ -31,13 +31,19 @@ import { RootDoorstepAI } from "@doorstepai/dropoff-sdk"
 const App = () => {
   return (
     <View>
-        <RootDoorstepAI apiKey="YOUR_API_KEY_HERE" />
+        <RootDoorstepAI 
+          apiKey="YOUR_API_KEY_HERE" 
+          notificationTitle="Some Notification Title"
+          notificationText="Some Notification Text"
+        />
         {/** Your App Components */}
   )
 }
 ```
 
 This sets the API key and initializes the SDK when the app launches.
+
+The notification title/text is meant to be passed into the Foreground Service for Android. This alows for greater customization over exact text. 
 
 ---
 
@@ -176,17 +182,21 @@ To use the `@doorstepai/dropoff-sdk` effectively, you must include the appropria
 In your `Info.plist`, include the following usage descriptions:
 
 ```xml
+<!-- Location Usage Descriptions -->
 <key>NSLocationWhenInUseUsageDescription</key>
-<string>This app requires access to your location while in use to track deliveries.</string>
+<string>This app requires access to your location for delivery tracking.</string>
+<key>NSLocationAlwaysAndWhenInUseUsage</key>
+<string>This app requires access to your location to provide continuous tracking even in the background.</string>
 
-<key>NSLocationAlwaysUsageDescription</key>
-<string>This app requires continuous location access to ensure accurate delivery tracking.</string>
-
-<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>This app requires location access at all times to support delivery tracking.</string>
-
+<!-- Optional: Motion & Sensor Data (if applicable) -->
 <key>NSMotionUsageDescription</key>
-<string>This app uses motion data to improve delivery tracking accuracy.</string>
+<string>This app uses motion data to enhance delivery tracking accuracy.</string>
+
+<!-- Background Location Mode -->
+<key>UIBackgroundModes</key>
+<array>
+    <string>location</string>
+</array>
 ```
 
 ### 🤖 Android
@@ -200,6 +210,9 @@ In your `AndroidManifest.xml`, include the following permissions:
 <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
 <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+<uses-permission android:name="android.permission.WAKE_LOCK" />
 
 <uses-feature android:name="android.hardware.sensor.accelerometer" />
 <uses-feature android:name="android.hardware.sensor.gyroscope" />
