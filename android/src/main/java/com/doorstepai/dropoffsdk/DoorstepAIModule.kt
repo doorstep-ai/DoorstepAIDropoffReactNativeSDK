@@ -9,6 +9,10 @@ import com.facebook.react.bridge.Promise
 import com.doorstepai.sdks.tracking.DoorstepAI
 import com.doorstepai.sdks.tracking.AddressType
 import com.facebook.react.bridge.ReadableMap
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+
 
 class DoorstepAIModule(private val reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
@@ -123,8 +127,17 @@ class DoorstepAIModule(private val reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun setDevMode(enabled: Boolean) {
-    DoorstepAI.devMode = enabled
+  fun enableDevMode(promise: Promise) {
+    CoroutineScope(Dispatchers.IO).launch {
+      try {
+        /*android.util.Log.i("DoorstepAI", "Attempting to enable dev mode...")
+        val result = DoorstepAI.enableDevMode()
+        android.util.Log.i("DoorstepAI", "Dev mode enabled: $result")
+        promise.resolve(result)*/
+      } catch (e: Exception) {
+        promise.reject("DEV_MODE_ERROR", e.message ?: "Failed to enable dev mode")
+      }
+    }
   }
 
   companion object {

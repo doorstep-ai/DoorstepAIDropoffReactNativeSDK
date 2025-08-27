@@ -14,7 +14,12 @@ class DoorstepAIModule {
   static isInitialized = false;
 
   static enableDevMode() {
-    DoorstepAI.setDevMode(true);
+    if (Platform.OS === 'android') {
+      console.log('Enabling dev mode on Android');
+      DoorstepAI.enableDevMode();
+    } else {
+      DoorstepAI.setDevMode(true);
+    }
   }
 
   static async init(

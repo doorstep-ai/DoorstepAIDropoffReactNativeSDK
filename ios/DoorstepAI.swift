@@ -25,7 +25,7 @@ class DoorstepAIBridge: NSObject {
 
     @objc
     func setDevMode(_ devModeEnabled: Bool) {
-        DoorstepAI.devMode = devModeEnabled
+        DoorstepAI.enableDevMode()
     }
 
     @objc
